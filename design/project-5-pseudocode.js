@@ -1,3 +1,35 @@
+// COMPONENTS:
+
+// App.js
+
+// create array to hold 4 random words from Random Word API
+// componentDidMount(): call Random Word API to get 4 words and store in ^ array
+// pass array index as props down to Word.js
+// Math.random() to grab 1 word from array stored in App.js and save that word to variable
+// check if ^ variable returns standard definition page or "word not found" page from API
+// if "word not found" page, Math.random() again to grab different word from array
+// pass ^ variable as props to Definition.js
+
+// Word.js x4
+// componentDidMount(): pass each array value into Merriam-Webster API url to retrieve object info x4, store in new object
+// render(): JSX button containing path to word stored in App.js array
+// check if button definition === definition from Definition.js
+// if ^ true, new call to Random Word API and repeat previous steps
+// if ^ false, render GAME OVER page
+
+// Definition.js
+// render(): JSX div containing path to definition of word from ^ variable
+// receive new props depending on true/false from Word.js user interaction
+
+
+
+// random words should be stored in state
+// .setState()
+// feature calls based on a function => "get another word" API method call
+// first API call will be on functionDidMount()
+
+
+
 
 // request several words from Merriam-Webster API and put into an array
 // for loop to display each array item as button on the page

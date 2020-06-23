@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 // import axios from 'axios';
 // // import Word from './Word';
 
@@ -93,8 +93,8 @@ import React, { Fragment } from 'react';
 
 // END OF RECENT CLASS CODE *******
 
-const Definition = (props) => {
-    console.log(props)
+// const Definition = (props) => {
+//     console.log(props)
 
     // const buildDefs = () => {
         // return props.shortdefs.map((def, index) => {
@@ -102,13 +102,17 @@ const Definition = (props) => {
         // })
     // }
 
+class Definition extends Component {
 
-    return (
-        <div>
-            {props.shortdefs}
-            {/* {buildDefs()} */}
-        </div>
-    )
+    render() {
+        return (
+            <div>
+                <h1>
+                    {this.props.shortdef}
+                </h1>
+            </div>
+        )
+    }
 }
 
 export default Definition;

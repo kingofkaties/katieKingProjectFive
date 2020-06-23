@@ -6,102 +6,88 @@ import './App.css';
 
 class App extends Component {
 
-// good idea to keep AJAX calls and state
-// keep AJAX data in state and pass down
-
-// handle edge case if word not found, handle edge case is common word - take data out using filter => grab first element of defintion
-
-
   constructor(props) {
     super(props);
-    console.log(this.props);
+
+    // initialize state with empty values
     this.state = {
-      words: [
-        "anti-authoritarianism",
-        "dog",
-        "bunker",
-        "ham"
-      ],
-      data: []
+      words: [],
+      definitions: {}
     };
   }
 
-  buildUrl(word) {
-    const url = `https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=876ed444-a30f-40ca-9a52-4d2265921d9d`;
-    return url;
-  }
-
-  callApi() {
-    return this.state.words.map((word) => {
-      return axios.get(this.buildUrl(word))
-    })
-  }
-
-  componentDidMount() {
-
-    // save url containing word
-
-    const allWords = this.callApi();
-    Promise.all(allWords)
+  // create function to get 4 random words
+  callRandomWordApi() {
+    axios.get('https://random-word-api.herokuapp.com/word?number=6')
+    
+      // wait until response comes back
       .then((response) => {
-        console.log(response);
-        const allWordsData = response.map((res) => {
-          return {
-            hwi: res.data[0].hwi.hw,
-            shortdefs: res.data[0].shortdef[0],
-            def: res.data[0].def[0],
-            uuid: res.data[0].meta.uuid
+
+        // store those 4 random words in state
+        this.setState({
+          words: response.data
+        })
+        console.log(this.state.words)
+
+        // call M-W function after THEN method
+        this.callMerriamWebsterApi();
+        }
+      )
+    }
+
+  // create function to get definitions from randomly generated words stored in state
+  callMerriamWebsterApi() {
+
+    // create clone array to store definitions inside while axios loops over each word
+    const definitionsClone = {};
+
+    // map over each item inside state.words array
+    this.state.words.forEach((word) => {
+      axios.get(`https://dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=876ed444-a30f-40ca-9a52-4d2265921d9d`)
+
+        // wait for response to come back
+        .then((response) => {
+          // check if word exists in M-W
+          if (response.data[0].shortdef) {
+            definitionsClone[word] = response.data[0].shortdef[0]
           }
         })
-            this.setState({
-              data: allWordsData
-            })
-        // this.setState(() => ({
-          // hwi: response.data[0].hwi,
-          // shortdefs
       })
 
-    // call url through axios
-    // axios.get(url)
+      // update state
+      this.setState({
 
-      // once the call has completed...
-      // .then((response) => {
-      //   console.log(response.data);
-      //   this.setState(() => ({
-      //     hwi: response.data[0].hwi,
-      //     shortdefs: response.data[0].shortdef
-      //   })
-      //   )
-      // }
-      // )
+        // push clone array to state
+        definitions: definitionsClone
+      })
+  }
+
+  selectDefinition() {
+    console.log('calling functioin!!!')
+  }
+    
+  // when component is called to page...
+  componentDidMount() {
+
+    // ...call random word function to generate 4 words & use to populate state.words, then populate state.definitions
+    this.callRandomWordApi();
   }
   
+  // render elements to the page
   render () {
-    // const wordRender = this.state.data.map((currentWord) => {
-    //   return (
-    //     <Fragment>
-    //       <Definition shortdefs={currentWord.shortdefs}/>
-    //       <Word hwi={currentWord.hwi} />
-    //     </Fragment>
-    //   )}
-    // )
-    console.log(this.state)
     return (
-      
-      <div>
-        {this.state.data.map((currentWord) => {
-          return (
-              <Fragment >
-              <Definition key={currentWord.uuid + Math.random()} shortdefs={currentWord.shortdefs} />
-                <Word key={currentWord.uuid + Math.random()} hwi={currentWord.hwi} />
-              </Fragment>
-          )
-        }
-        )}
-        {/* use .map to generate 4 Wrod components */}
-      </div>
+      <Fragment>
+        <Definition shortdef={this.selectDefinition}/>
+        {/* <Definition shortdef={this.state.definitions} /> */}
+
+                {/* use .map to generate 4 Wrod components */}
+                {}
+      </Fragment>
     );
   }
 }
 
 export default App;
+
+// assign correct "item"
+// that correct item === the correct item

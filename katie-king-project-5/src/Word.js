@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 class Word extends Component {
 
@@ -7,11 +7,11 @@ class Word extends Component {
 
     render() {
         return (
-            <button value={this.props.word} onClick={(event) => this.props.handleClick(event)}>
-                <p>
+            <button value={this.props.word} onClick={this.props.handleWordSelect} class={this.props.className}>
+                <h3>
                     {this.props.word}
-                </p>
-            </button>
+                </h3>
+            </button>        
         );
     };
 }

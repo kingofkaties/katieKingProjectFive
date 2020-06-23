@@ -12,13 +12,15 @@ class App extends Component {
     // initialize state with empty values
     this.state = {
       words: [],
-      definitions: {}
+      definitions: {},
+      numOfDefs: [],
+      activeDef: 0
     };
   }
 
   // create function to get 4 random words
   callRandomWordApi() {
-    axios.get('https://random-word-api.herokuapp.com/word?number=6')
+    axios.get('https://random-word-api.herokuapp.com/word?number=9')
     
       // wait until response comes back
       .then((response) => {
@@ -47,25 +49,34 @@ class App extends Component {
 
         // wait for response to come back
         .then((response) => {
+
           // check if word exists in M-W
           if (response.data[0].shortdef) {
             definitionsClone[word] = response.data[0].shortdef[0]
           }
+
+          const randomNum = Math.floor(Math.random() * this.state.numOfDefs)
+
+          this.setState({
+    
+            // push clone array to state
+            definitions: definitionsClone,
+    
+            // count how many keys are in state.definitions object and save to own state
+            numOfDefs: Object.keys(this.state.definitions).length,
+
+            // Select a single definition to be active
+            activeDef: this.state.words[randomNum]
+
+            // check if key exists inside object - Owen slacked me a resource to investigate - if exiists in definition obj, assigtn to state, if not, something else
+          })
+
+          // this.selectDefinition(this.state.numOfDefs)
+          // console.log(this.state.numOfDefs)
         })
       })
-
-      // update state
-      this.setState({
-
-        // push clone array to state
-        definitions: definitionsClone
-      })
   }
 
-  selectDefinition() {
-    console.log('calling functioin!!!')
-  }
-    
   // when component is called to page...
   componentDidMount() {
 
@@ -77,11 +88,19 @@ class App extends Component {
   render () {
     return (
       <Fragment>
-        <Definition shortdef={this.selectDefinition}/>
-        {/* <Definition shortdef={this.state.definitions} /> */}
 
-                {/* use .map to generate 4 Wrod components */}
-                {}
+        <Definition activeDef={this.state.definitions[this.state.activeDef]} />
+        
+        <Word word={this.state.words[0]} />
+        <Word word={this.state.words[1]} />
+        <Word word={this.state.words[2]} />
+        <Word word={this.state.words[3]} />
+        <Word word={this.state.words[4]} />
+        <Word word={this.state.words[5]} />
+        <Word word={this.state.words[6]} />
+        <Word word={this.state.words[7]} />
+        <Word word={this.state.words[8]} />
+        
       </Fragment>
     );
   }

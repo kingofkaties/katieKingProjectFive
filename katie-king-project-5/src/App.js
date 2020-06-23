@@ -14,9 +14,40 @@ class App extends Component {
       words: [],
       definitions: {},
       numOfDefs: [],
-      activeDef: 0
+      activeDef: 0,
+      userChoice: false
     };
   }
+
+  // change on button click
+  handleClick = (event) => {
+    console.log(event, event.target.value)
+    this.setState({
+      userChoice: this.state.userChoice ? false : true
+    })
+    if (this.state.userChoice === this.state.activeDef ) {
+      console.log("You got it right!")
+      this.callRandomWordApi();
+    } else { console.log("You got it wrong!")}
+    // console.log("Ahoy, I've been clicked!")
+    // // brand new axios call? pass in hard-coded
+    // axios.get('https://random-word-api.herokuapp.com/word?number=3')
+    // .then((response) => {
+    //   this.setState({
+    //     words: response.data,
+    //     userChoice: event.target.value
+    //   })
+    //   console.log(response)
+    //   console.log()
+    // })
+    // this.setState({
+    //   userChoice: event.target.value
+    // })
+
+    // store value of button that was clicked -> store in userChoice (state)
+    // event.target.value
+  }
+
 
   // create function to get 4 random words
   callRandomWordApi() {
@@ -49,9 +80,9 @@ class App extends Component {
 
         // wait for response to come back
         .then((response) => {
-
+          console.log(response)
           // check if word exists in M-W
-          if (response.data[0].shortdef) {
+          if (response.data[0].hasOwnProperty('shortdef')){
             definitionsClone[word] = response.data[0].shortdef[0]
           }
 
@@ -70,9 +101,6 @@ class App extends Component {
 
             // check if key exists inside object - Owen slacked me a resource to investigate - if exiists in definition obj, assigtn to state, if not, something else
           })
-
-          // this.selectDefinition(this.state.numOfDefs)
-          // console.log(this.state.numOfDefs)
         })
       })
   }
@@ -86,20 +114,22 @@ class App extends Component {
   
   // render elements to the page
   render () {
+
+    console.log(this.state.userChoice)
     return (
       <Fragment>
 
         <Definition activeDef={this.state.definitions[this.state.activeDef]} />
         
-        <Word word={this.state.words[0]} />
-        <Word word={this.state.words[1]} />
-        <Word word={this.state.words[2]} />
-        <Word word={this.state.words[3]} />
-        <Word word={this.state.words[4]} />
-        <Word word={this.state.words[5]} />
-        <Word word={this.state.words[6]} />
-        <Word word={this.state.words[7]} />
-        <Word word={this.state.words[8]} />
+        {/* map these out
+        use second "index" option (part of map) to add className + template literal for adding in index numbers - this is how you
+        className-1, className-2, className-3 <----index value to sub in # */}
+        {/* add another prop to Word component -> also store word as value on the button (HTML buttons have value) */}
+        {/*  */}
+
+        {this.state.words.map((word, index) => {
+          return <Word handleClick={this.handleClick} word={this.state.words[index]} />
+        })}
         
       </Fragment>
     );

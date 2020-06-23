@@ -1,11 +1,16 @@
 import React, { Component, Fragment } from 'react';
 
-class Word extends Component {    
+class Word extends Component {
+
+    
+// add another
 
     render() {
         return (
-            <button>
-                <p>{this.props.word}</p>
+            <button value={this.props.word} onClick={(event) => this.props.handleClick(event)}>
+                <p>
+                    {this.props.word}
+                </p>
             </button>
         );
     };

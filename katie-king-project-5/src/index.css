@@ -28,6 +28,7 @@ body {
   background-image: url('./assets/notebook-paper.jpg');
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .show {
@@ -38,27 +39,46 @@ body {
   display: none;
 }
 
+header {
+  padding: 30px;
+}
+
+footer {
+  margin-top: 50px;
+}
+
 /* fonts */
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital@1&family=Rock+Salt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital@1&family=Rock+Salt&family=Pangolin&display=swap');
+
+h1,
+h2,
+h3,
+footer {
+  font-family: "Rock Salt", sans-serif;
+}
+
+button,
+blockquote {
+  font-family: "Pangolin";
+}
 
 h1 {
   font-size: 4rem;
 }
 
+blockquote,
+h3 {
+  font-size: 2rem;
+  margin: 50px;
+}
+
 h2 {
-  font-family: "raleway";
+  font-size: 1rem
 }
 
-h1,
-h4,
-button {
-  font-family: "Rock Salt", sans-serif;
-}
-
-h4,
-button {
-  font-size: 1.5rem
+h3 {
+  text-transform: capitalize;
 }
 
 /* button styles */
@@ -66,8 +86,23 @@ button {
 button {
   background-color: #FFFF88;
   width: 23%;
-  padding: 5%;
+  height: 80px;
   margin: 2% 5% 2% 5%;
+  outline: none;
+  border: 1px solid #c2c25c;
+  word-wrap: break-word;
+  line-height: 1;
+}
+
+button:hover,
+button:focus,
+button:active {
+  box-shadow: 3px 3px 1px #c2c25c;
+  transform: scale(1.1)
+}
+
+button:active {
+  background-color: #eeee81;
 }
 
 .button1 {
@@ -106,12 +141,15 @@ button {
   transform: rotate(1deg)
 }
 
-/* Counter styles */
+/* MEDIA QUERIES */
 
-/* .scoreCounter {
-  border: 3px dashed black;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  text-align: center;
-} */
+@media (max-width: 600px) {
+
+  html {
+    font-size: 0.8rem;
+  }
+
+  button {
+    width: 40%;
+  }
+}

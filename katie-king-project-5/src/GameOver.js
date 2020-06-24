@@ -3,12 +3,16 @@ import Counter from './Counter';
 
 class GameOver extends Component {
 
+    handleClick() {
+        window.location.reload();
+    }
+
     render() {
         return (
             <Fragment>
-                <h5>Game Over</h5>
+                <h3>Game Over</h3>
                 <Counter currentScore={this.props.score}/>
-                <button className="playAgain">Play Again</button>
+                <button onClick={this.handleClick}>play again</button>
             </Fragment>
         )
     }

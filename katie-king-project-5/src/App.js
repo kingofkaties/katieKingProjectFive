@@ -128,7 +128,11 @@ class App extends Component {
 
   return (
     <Fragment>
-      <h1>Word Nerd</h1>
+
+      {/* header */}
+      <header>
+        <h1>Word Nerd</h1>
+      </header>
 
       {/* game board */}
       <div className={this.state.gameBoardVisible}>
@@ -155,6 +159,11 @@ class App extends Component {
         <GameOver
         score={this.state.score} />
       </div>
+
+      {/* footer */}
+      <footer>
+        © Katie King 2020
+      </footer>
     </Fragment>
   );
   }

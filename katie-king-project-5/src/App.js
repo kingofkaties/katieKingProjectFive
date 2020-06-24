@@ -4,6 +4,7 @@ import Definition from './Definition';
 import Word from './Word';
 import Counter from './Counter';
 import GameBoard from './GameBoard';
+import GameOver from './GameOver';
 import './App.css';
 
 class App extends Component {
@@ -19,7 +20,9 @@ class App extends Component {
         numOfDefs: [],
         activeDef: "",
         userChoice: "",
-        score: 0
+        score: 0,
+        gameBoardVisible: "show",
+        gameOverVisible: "hide"
       };
     }
 
@@ -113,7 +116,10 @@ class App extends Component {
       this.callRandomWordApi();
     } else {
       console.log("You got it wrong!")
-
+      this.setState({
+        gameBoardVisible: "hide",
+        gameOverVisible: "show"
+      })
     }
   }
 
@@ -124,22 +130,31 @@ class App extends Component {
     <Fragment>
       <h1>Word Nerd</h1>
 
-      <GameBoard 
-      // props for Definition.js
-      definitionsArray={this.state.definitions}
-      currentDefinition={this.state.activeDef}       
-      // props for Word.js
-      wordSelect={this.handleClick}
-      wordsArray={this.state.words} 
-      // props for Counter.js
-      score={this.state.score}
-      />      
-
-      {/* game over div */}
-      <div className="gameOver hide">
+      {/* game board */}
+      <div className={this.state.gameBoardVisible}>
+        <GameBoard
+        // props for Definition.js
+        definitionsArray={this.state.definitions}
+        currentDefinition={this.state.activeDef}
+        // props for Word.js
+        wordSelect={this.handleClick}
+        wordsArray={this.state.words}
+        // props for Counter.js
+        score={this.state.score}
+        />
+      
+        {/* game over div */}
+        <div className="gameOver hide">
         <h2>Game Over</h2>
         <button className="playAgain">Play Again</button>
-      </div>   
+        </div>
+      </div>
+
+      {/* game over */}
+      <div className={this.state.gameOverVisible}>
+        <GameOver
+        score={this.state.score} />
+      </div>
     </Fragment>
   );
   }

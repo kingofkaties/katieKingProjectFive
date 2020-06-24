@@ -7,10 +7,8 @@ class Word extends Component {
 
     render() {
         return (
-            <button value={this.props.word} onClick={this.props.handleWordSelect} class={this.props.className}>
-                <h3>
-                    {this.props.word}
-                </h3>
+            <button value={this.props.word} onClick={this.props.handleWordSelect} className={this.props.className}>
+                {this.props.word}
             </button>        
         );
     };

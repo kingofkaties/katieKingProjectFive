@@ -6,7 +6,7 @@ class Definition extends Component {
         // console.log(this.state.words)
         return (
             <div>
-                <h2>{this.props.currentWord}</h2>
+                <h2>{this.props.defArray[this.props.currentDef]}</h2>
             </div>
         )
     }

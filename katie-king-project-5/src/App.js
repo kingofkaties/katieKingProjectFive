@@ -3,6 +3,7 @@ import axios from 'axios';
 import Definition from './Definition';
 import Word from './Word';
 import Counter from './Counter';
+import GameBoard from './GameBoard';
 import './App.css';
 
 class App extends Component {
@@ -112,7 +113,7 @@ class App extends Component {
       this.callRandomWordApi();
     } else {
       console.log("You got it wrong!")
-      
+
     }
   }
 
@@ -121,21 +122,18 @@ class App extends Component {
 
   return (
     <Fragment>
+      <h1>Word Nerd</h1>
 
-      {/* game baord div */}
-      <div className="gameBoard show">
-        <h1>Word Nerd</h1>
-      
-        <Counter score={this.state.score} />
-        
-        <Definition currentWord={this.state.definitions[this.state.activeDef]} />
-        
-        <div className="buttonContainer">
-        {this.state.words.map((word, index) => {
-        return <Word handleWordSelect={this.handleClick} word={this.state.words[index]} className={`button`} />
-        })}
-        </div>
-      </div>   
+      <GameBoard 
+      // props for Definition.js
+      definitionsArray={this.state.definitions}
+      currentDefinition={this.state.activeDef}       
+      // props for Word.js
+      wordSelect={this.handleClick}
+      wordsArray={this.state.words} 
+      // props for Counter.js
+      score={this.state.score}
+      />      
 
       {/* game over div */}
       <div className="gameOver hide">

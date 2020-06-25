@@ -12,7 +12,7 @@ class GameBoard extends Component {
             
                 <Definition defArray={this.props.definitionsArray} currentDef={this.props.currentDefinition} />
                 
-                <div className="buttonContainer">
+                <div className="buttonontainer">
                     {this.props.wordsArray.map((word, index) => {
                         return <Word handleWordSelect={this.props.wordSelect} word={this.props.wordsArray[index]} className={`button${[index]}`} />
                     })}

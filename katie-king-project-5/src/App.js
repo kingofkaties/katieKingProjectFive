@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import Definition from './Definition';
-import Word from './Word';
-import Counter from './Counter';
 import GameBoard from './GameBoard';
 import GameOver from './GameOver';
 import './App.css';
@@ -108,14 +105,12 @@ class App extends Component {
     const userChoice = event.target.value;
 
     if (userChoice === this.state.activeDef) {
-      console.log("You got it right!")
       this.setState({
         score: this.state.score + 1, 
         wordsWithDefs: []
       })
       this.callRandomWordApi();
     } else {
-      console.log("You got it wrong!")
       this.setState({
         gameBoardVisible: "hide",
         gameOverVisible: "show"
@@ -170,6 +165,3 @@ class App extends Component {
 }
 
 export default App;
-
-// assign correct "item"
-// that correct item === the correct item
